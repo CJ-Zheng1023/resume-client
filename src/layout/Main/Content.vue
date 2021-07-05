@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <router-view :key="fullPath" #default="{ Component }">
-      <transition name="fade">
+      <transition name="fade" mode="out-in">
         <component :is="Component"></component>
       </transition>
     </router-view>
@@ -28,11 +28,15 @@ export default defineComponent({
 }
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s ease;
+  transition: all 0.5s;
 }
 
-.fade-enter-from,
+.fade-enter-from {
+  opacity: 0;
+  transform: translateX(-30px);
+}
 .fade-leave-to {
   opacity: 0;
+  transform: translateX(30px);
 }
 </style>
