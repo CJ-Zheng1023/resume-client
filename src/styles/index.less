@@ -1,0 +1,28 @@
+@import './reset.less';
+@import 'vfonts/FiraSans.css';
+@import 'vfonts/FiraCode.css';
+:root {
+  --color1: #f4d03e;
+  --color2: #111;
+  --color3: #fff;
+  --fontSize1: 50px;
+  --fontSize2: 30px;
+  --fontSize3: 24px;
+  --fontSize4: 18px;
+  --fontSize5: 16px;
+  --fontSize6: 14px;
+  --containerPadding: 20px;
+}
+@flex: .flexible;
+@{flex}{
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  &@{flex}--column{
+    height: 100%;
+    flex-flow: column;
+  }
+  &@{flex}--center{
+    justify-content: center;
+  }
+}

@@ -1,0 +1,35 @@
+.clearfix() {
+  &::after {
+    clear: both;
+    content: '';
+    display: block;
+    visibility: hidden;
+  }
+}
+.flexItem(@className) when (@className = logo) {
+  height: @logoHeight;
+  background-color: @color2;
+  min-height: @logoMinHeight;
+  .flexItemBorderRadius();
+}
+.flexItem(@className) when (@className = menu) {
+  height: calc(@menuHeight - @gapSize);
+  background-color: @color1;
+  .flexItemBorderRadius();
+  margin-top: @gapSize;
+}
+.flexItem(@className) when (@className = header) {
+  height: @headerHeight;
+  min-height: @headerMinHeight;
+  background-color: @color2;
+  .flexItemBorderRadius();
+}
+.flexItem(@className) when (@className = content) {
+  height: calc(@contentHeight - @gapSize);
+  margin-top: @gapSize;
+  background-color: @color3;
+  .flexItemBorderRadius();
+}
+.flexItemBorderRadius() {
+  border-radius: 4px;
+}
