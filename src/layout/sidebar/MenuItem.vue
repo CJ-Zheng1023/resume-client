@@ -1,5 +1,5 @@
 <template>
-  <div @click="toNav" :class="['menu-item', { 'menu-item--active': isFirst }, { 'menu-item--reactive': !isMd }]" ref="item">
+  <div @click="toNav" :class="['menu-item', { 'menu-item--active': isActive }, { 'menu-item--reactive': !isMd }]">
     <div class="menu-item__label">
       <div class="menu-item__text">{{ meta.title }}</div>
     </div>
@@ -17,7 +17,6 @@ import { Icon } from '@vicons/utils'
 import { Home, StatsChartSharp } from '@vicons/ionicons5'
 import { Timeline24Filled, Building20Filled } from '@vicons/fluent'
 import { MenuIconEnum } from '@/enums/MenuIconEnum'
-import { useMenuItemClick } from '@/hooks/useMenuItem'
 import { useRouter } from 'vue-router'
 import useIsMd from '@/hooks/useIsMd'
 export default defineComponent({
@@ -33,20 +32,21 @@ export default defineComponent({
       type: Object,
       default: () => {}
     },
-    isFirst: {
+    isActive: {
       type: Boolean,
       default: false
     }
   },
-  setup(props) {
+  emits: ['active'],
+  setup(props, { emit }) {
     const router = useRouter()
     const toNav = () => {
+      emit('active', props.menuItem.icon)
       router.push(props.menuItem.path)
     }
     return {
       isMd: useIsMd(),
       ...props.menuItem,
-      item: useMenuItemClick(),
       toNav
     }
   }

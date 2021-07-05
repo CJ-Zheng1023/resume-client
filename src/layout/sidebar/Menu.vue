@@ -3,45 +3,54 @@
     <div class="menubox__inner flexible flexible--column">
       <div class="menubox__menu">
         <div class="menu">
-          <menu-item v-for="(item, index) in commonRoutes" :isFirst="index === 0" :key="item.name" :menuItem="item"></menu-item>
+          <menu-item @active="handleActive" v-for="item in commonRoutes" :isActive="currentMenu === item.icon" :key="item.name" :menuItem="item"></menu-item>
         </div>
       </div>
-      <div class="menubox__link">
-        <div class="link">
-          <div class="link-item">
-            <a href="https://github.com/CJ-Zheng1023" target="_blank">
-              <Icon>
-                <LogoGithub />
-              </Icon>
-            </a>
+      <div :class="['menubox__link', { 'menubox__link--active': !isMd && toggleClicked }]">
+        <div class="toggle" @click.stop="clickToggle">
+          <div class="icon">
+            <Icon>
+              <EllipsisHorizontal />
+            </Icon>
           </div>
-          <div class="link-item">
-            <a href="https://afterwin.cn" target="_blank">
-              <Icon>
-                <Link />
-              </Icon>
-            </a>
-          </div>
-          <div class="link-item">
-            <a href="https://v3.cn.vuejs.org/" target="_blank">
-              <Icon>
-                <LogoVue />
-              </Icon>
-            </a>
-          </div>
-          <div class="link-item">
-            <a href="https://www.naiveui.com/" target="_blank">
-              <Icon>
-                <Layout />
-              </Icon>
-            </a>
-          </div>
-          <div class="link-item">
-            <a href="https://vueuse.org/" target="_blank">
-              <Icon>
-                <Toolbox16Regular />
-              </Icon>
-            </a>
+        </div>
+        <div class="wrapper">
+          <div class="link">
+            <div class="link-item">
+              <a href="https://github.com/CJ-Zheng1023" target="_blank">
+                <Icon>
+                  <LogoGithub />
+                </Icon>
+              </a>
+            </div>
+            <div class="link-item">
+              <a href="https://afterwin.cn" target="_blank">
+                <Icon>
+                  <Link />
+                </Icon>
+              </a>
+            </div>
+            <div class="link-item">
+              <a href="https://v3.cn.vuejs.org/" target="_blank">
+                <Icon>
+                  <LogoVue />
+                </Icon>
+              </a>
+            </div>
+            <div class="link-item">
+              <a href="https://www.naiveui.com/" target="_blank">
+                <Icon>
+                  <Layout />
+                </Icon>
+              </a>
+            </div>
+            <div class="link-item">
+              <a href="https://vueuse.org/" target="_blank">
+                <Icon>
+                  <Toolbox16Regular />
+                </Icon>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -50,14 +59,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import useIsMd from '@/hooks/useIsMd'
 import { commonRoutes } from '@/router/config'
 import MenuItem from './MenuItem.vue'
 import { Icon } from '@vicons/utils'
-import { LogoVue, LogoGithub, Link } from '@vicons/ionicons5'
+import {
+  LogoVue,
+  LogoGithub,
+  Link,
+  EllipsisHorizontal
+} from '@vicons/ionicons5'
 import { Layout } from '@vicons/carbon'
 import { Toolbox16Regular } from '@vicons/fluent'
+import { MenuIconEnum } from '@/enums/MenuIconEnum'
+import useWindowClick from '@/hooks/useWindowClick'
 export default defineComponent({
   components: {
     MenuItem,
@@ -66,12 +82,26 @@ export default defineComponent({
     LogoGithub,
     Link,
     Layout,
-    Toolbox16Regular
+    Toolbox16Regular,
+    EllipsisHorizontal
   },
   setup() {
+    const currentMenu = ref<MenuIconEnum>(MenuIconEnum.HOME)
+    const handleActive = (menuName: MenuIconEnum) => {
+      currentMenu.value = menuName
+    }
+    const toggleClicked = ref<boolean>(false)
+    const clickToggle = () => {
+      toggleClicked.value = true
+    }
+    useWindowClick(toggleClicked)
     return {
       isMd: useIsMd(),
-      commonRoutes
+      currentMenu,
+      commonRoutes,
+      handleActive,
+      toggleClicked,
+      clickToggle
     }
   }
 })
@@ -85,7 +115,73 @@ export default defineComponent({
     height: auto;
     flex-grow: 1;
     @{menuBox}__link{
-      display: none;
+      position: relative;
+      &@{menuBox}__link--active{
+        .wrapper{
+          opacity: 1;
+          transform: scaleX(1);
+        }
+        .toggle{
+          &::after{
+            width: 100%;
+          }
+          .icon{
+            color: @color1;
+          }
+        }
+      }
+      .toggle{
+        position: relative;
+        display: block;
+        text-align: center;
+        cursor: pointer;
+        padding: @linkTopAndBottomPadding 0;
+        &::after{
+          z-index: 1;
+          content: "";
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          width: 0;
+          background-color: @color2;
+          transition: width .4s;
+        }
+        .icon{
+          display: inline-block;
+          position: relative;
+          z-index: 2;
+          padding: 4px;
+          border-radius: 4px;
+          font-size: @fontSize3;
+          color: @color2;
+          .fixicon();
+        }
+      }
+      .wrapper{
+        transition: transform .4s, opacity .4s;
+        transform: scaleX(0);
+        transform-origin: 0%;
+        position: absolute;
+        left: 100%;
+        top: 0;
+        opacity: 0;
+        @{link}{
+          background-color: @color2;
+        }
+        @{linkItem}{
+          margin: 0 6px;
+          &:hover{
+            background-color: @color1;
+            a{
+              color: @color2;
+            }
+          }
+          a{
+            color: @color1;
+          }
+        }
+      }
     }
   }
   @{menuBox}__inner{
@@ -98,6 +194,9 @@ export default defineComponent({
   }
   @{menuBox}__link{
     flex-shrink: 0;
+    .toggle{
+      display: none;
+    }
   }
 }
 @menu: .menu;
@@ -106,11 +205,12 @@ export default defineComponent({
   overflow-y: auto;
 }
 @link: .link;
+@linkTopAndBottomPadding: 10px;
 @{link}{
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 10px 30px;
+  padding: @linkTopAndBottomPadding 30px;
 }
 @linkItem: .link-item;
 @{linkItem}{
@@ -126,9 +226,7 @@ export default defineComponent({
     font-size: @fontSize3;
     color: @color2;
     line-height: 1;
-    /deep/ .xicon{
-      display: block;
-    }
+    .fixicon();
   }
 }
 </style>
