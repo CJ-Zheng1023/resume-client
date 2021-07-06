@@ -3,13 +3,13 @@
     <div class="timeline-item__node"></div>
     <div class="timeline-item__tail"></div>
     <div class="timeline-item__title">
-      <span class="timeline-item__extend" v-if="extendable" @click="clickExtendButton">
+      <slot name="title"></slot>
+      <span class="timeline-item__extender" v-if="extendable" @click="clickExtendButton">
         <template v-if="extended">-</template>
         <template v-else>+</template>
       </span>
-      <slot name="title"></slot>
     </div>
-    <div class="timeline-item__content">
+    <div :class="['timeline-item__content', { 'timeline-item__content--show': extended }]">
       <slot></slot>
     </div>
   </div>
@@ -28,7 +28,7 @@ export default defineComponent({
   setup(props) {
     const extended = ref<boolean>(true)
     const clickExtendButton = () => {
-      extended.value = extended.value
+      extended.value = !extended.value
     }
     return {
       extended,
@@ -41,7 +41,7 @@ export default defineComponent({
 
 <style scoped lang="less">
 @timelineItem: .timeline-item;
-@nodeSize: 12px;
+@nodeSize: 20px;
 @paddingLeft: 36px;
 @tailWidth: 2px;
 @{timelineItem}{
@@ -51,10 +51,15 @@ export default defineComponent({
     @extendSize: 12px;
     @{timelineItem}__title{
       position: relative;
-      padding-right: 26px;
-      @{timelineItem}__extend{
+      padding-left: 20px;
+      @{timelineItem}__extender{
+        background-color: @color2;
+        color: @color3;
+        cursor: pointer;
+        border-radius: 50%;
+        line-height: @extendSize;
         position: absolute;
-        left: 5px;
+        left: 4px;
         top: 50%;
         height: @extendSize;
         width: @extendSize;
@@ -91,6 +96,10 @@ export default defineComponent({
     font-weight: 300;
     font-size: @fontSize5;
     line-height: 1.4;
+    display: none;
+    &@{timelineItem}__content--show{
+      display: block;
+    }
   }
 }
 </style>

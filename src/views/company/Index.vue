@@ -24,19 +24,14 @@ export default defineComponent({
   setup() {
     const companies = [
       {
-        name: 'dr',
-        startTime: '2020.1.1',
-        endTime: '至今',
-        works: ['adfadf', 'adfadf', 'asdfasfdaf']
-      },
-      {
-        name: 'dr',
-        startTime: '2020.1.1',
+        name: '东软集团股份有限公司',
+        startTime: '2012.7',
         endTime: '至今',
         works: [
-          'adfadf',
-          'adfadf',
-          'asdfasfdsadfadfadf大法师打发斯蒂芬阿士大夫撒打发的asdfdsfsadfasdf打法撒旦af'
+          '制定前端开发规范，并应用到实际项目，提高前端团队开发效率。',
+          '参与前端技术选型，调研，前端架构的设计以及对项目核心模块的开发工作。',
+          '参与制定前后端接口规范。',
+          '负责项目公共组件的开发，主要涉及基于jquery，vue等前端框架的公共组件开发。'
         ]
       }
     ]

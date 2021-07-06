@@ -5,7 +5,7 @@
     </div>
     <div class="menu-item__icon">
       <Icon>
-        <component :is="icon"></component>
+        <component :is="meta.icon"></component>
       </Icon>
     </div>
   </div>
@@ -41,7 +41,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const router = useRouter()
     const toNav = () => {
-      emit('active', props.menuItem.icon)
+      emit('active', props.menuItem.meta.icon)
       router.push(props.menuItem.path)
     }
     return {

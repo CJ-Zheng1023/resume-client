@@ -3,7 +3,7 @@
     <div class="menubox__inner flexible flexible--column">
       <div class="menubox__menu">
         <div class="menu">
-          <menu-item @active="handleActive" v-for="item in commonRoutes" :isActive="currentMenu === item.icon" :key="item.name" :menuItem="item"></menu-item>
+          <menu-item @active="handleActive" v-for="item in commonRoutes" :isActive="currentMenu === item.meta.icon" :key="item.name" :menuItem="item"></menu-item>
         </div>
       </div>
       <div :class="['menubox__link', { 'menubox__link--active': !isMd && toggleClicked }]">
@@ -74,6 +74,7 @@ import { Layout } from '@vicons/carbon'
 import { Toolbox16Regular } from '@vicons/fluent'
 import { MenuIconEnum } from '@/enums/MenuIconEnum'
 import useWindowClick from '@/hooks/useWindowClick'
+import { useRoute } from 'vue-router'
 export default defineComponent({
   components: {
     MenuItem,
@@ -86,7 +87,9 @@ export default defineComponent({
     EllipsisHorizontal
   },
   setup() {
-    const currentMenu = ref<MenuIconEnum>(MenuIconEnum.HOME)
+    const route = useRoute()
+    console.log(route)
+    const currentMenu = ref<MenuIconEnum>(route.meta.icon as MenuIconEnum)
     const handleActive = (menuName: MenuIconEnum) => {
       currentMenu.value = menuName
     }
@@ -159,6 +162,7 @@ export default defineComponent({
         }
       }
       .wrapper{
+        z-index: 2;
         transition: transform .4s, opacity .4s;
         transform: scaleX(0);
         transform-origin: 0%;
