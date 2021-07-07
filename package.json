@@ -6,6 +6,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@vicons/antd": "^0.10.0",
     "@vicons/carbon": "^0.10.0",
     "@vicons/fluent": "^0.10.0",
     "@vicons/ionicons5": "^0.10.0",

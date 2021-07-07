@@ -2,6 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@types/node': ^15.12.5
+  '@vicons/antd': ^0.10.0
   '@vicons/carbon': ^0.10.0
   '@vicons/fluent': ^0.10.0
   '@vicons/ionicons5': ^0.10.0
@@ -20,6 +21,7 @@ specifiers:
   vuex: ^4.0.2
 
 dependencies:
+  '@vicons/antd': 0.10.0
   '@vicons/carbon': 0.10.0
   '@vicons/fluent': 0.10.0
   '@vicons/ionicons5': 0.10.0
@@ -73,6 +75,10 @@ packages:
   /@types/node/15.12.5:
     resolution: {integrity: sha512-se3yX7UHv5Bscf8f1ERKvQOD6sTyycH3hdaoozvaLxgUiY5lIGEeH37AD0G0Qi9kPqihPn0HOfd2yaIEN9VwEg==}
     dev: true
+
+  /@vicons/antd/0.10.0:
+    resolution: {integrity: sha512-F+pVt2cYJDoJw5Wvu5YzvqnpCoUPeYh272R/ZVK+2H6U/G0LCDvEWNQHXkbLBpCtu9FAq/yac0NNfg1i0a1DGg==}
+    dev: false
 
   /@vicons/carbon/0.10.0:
     resolution: {integrity: sha512-+WHe9WkbjGCDuGeRjVUyurlRv4ypjJ3dxITmSRsUJlOH+UKbzWSGVlgDD4xg1L18ss+iSeW6mWgmxXHi1FrjMw==}

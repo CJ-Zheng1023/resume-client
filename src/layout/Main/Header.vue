@@ -1,6 +1,12 @@
 <template>
   <div class="header">
-    <div class="header__tools"></div>
+    <div class="header__tools">
+      <div class="tool-item skin" @click="clickSkin">
+        <icon>
+          <SkinOutlined />
+        </icon>
+      </div>
+    </div>
     <div class="header__content">
       <span class="header__text header__text--special">欢迎</span>
       <span class="header__text">查阅本人简历</span>
@@ -10,10 +16,22 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-
+import { Icon } from '@vicons/utils'
+import { SkinOutlined } from '@vicons/antd'
+import { useStore } from 'vuex'
 export default defineComponent({
+  components: {
+    Icon,
+    SkinOutlined
+  },
   setup() {
-    return {}
+    const store = useStore()
+    const clickSkin = () => {
+      store.dispatch('app/setDrawerOpened', true)
+    }
+    return {
+      clickSkin
+    }
   }
 })
 </script>
@@ -24,7 +42,9 @@ export default defineComponent({
   .flexItem(header);
   padding: 10px @mainBoxPaddingLeftAndRight;
   @{header}__tools{
-    color: aqua;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
   }
   @{header}__content{
     padding-top: 80px;
@@ -39,6 +59,21 @@ export default defineComponent({
       color: @color1;
     }
   }
-
+}
+@toolItem: .tool-item;
+@{toolItem}{
+  padding: 2px;
+  border-radius: 3px;
+  color: @color1;
+  font-size: @fontSize3;
+  cursor: pointer;
+  .fixicon();
+  &+@{toolItem}{
+    margin-left: 10px;
+  }
+  &:hover{
+    background-color: @color1;
+    color: @color2;
+  }
 }
 </style>

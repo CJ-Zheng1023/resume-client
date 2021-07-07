@@ -7,7 +7,7 @@
         </div>
       </div>
       <div :class="['menubox__link', { 'menubox__link--active': !isMd && toggleClicked }]">
-        <div class="toggle" @click.stop="clickToggle">
+        <div class="toggle" @click="clickToggle">
           <div class="icon">
             <Icon>
               <EllipsisHorizontal />
@@ -73,7 +73,7 @@ import {
 import { Layout } from '@vicons/carbon'
 import { Toolbox16Regular } from '@vicons/fluent'
 import { MenuIconEnum } from '@/enums/MenuIconEnum'
-import useWindowClick from '@/hooks/useWindowClick'
+import { deactivateLinkNav } from '@/hooks/useWindowClick'
 import { useRoute } from 'vue-router'
 export default defineComponent({
   components: {
@@ -97,7 +97,7 @@ export default defineComponent({
     const clickToggle = () => {
       toggleClicked.value = true
     }
-    useWindowClick(toggleClicked)
+    deactivateLinkNav(toggleClicked)
     return {
       isMd: useIsMd(),
       currentMenu,
