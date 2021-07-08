@@ -88,7 +88,6 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute()
-    console.log(route)
     const currentMenu = ref<MenuIconEnum>(route.meta.icon as MenuIconEnum)
     const handleActive = (menuName: MenuIconEnum) => {
       currentMenu.value = menuName
