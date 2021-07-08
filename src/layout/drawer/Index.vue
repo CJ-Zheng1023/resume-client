@@ -27,6 +27,7 @@ import { useEventListener } from '@vueuse/core'
 import { cacheKey } from '@/config'
 import { storage } from '@/utils/storage'
 import { makeUp } from '@/plugins/makeUp'
+import { hex2rgba } from '@/utils/lib'
 export default defineComponent({
   setup() {
     const store = useStore()
@@ -47,12 +48,12 @@ export default defineComponent({
         active: false
       },
       {
-        colors: ['blue', 'red', '#fff'],
+        colors: ['#e56a54', '#666666', '#e4e4e4'],
         name: '玫瑰金',
         active: false
       },
       {
-        colors: ['green', 'pink', '#fff'],
+        colors: ['#2f9fd0', '#ad841f', '#666666'],
         name: '玫瑰金',
         active: false
       }
@@ -64,10 +65,12 @@ export default defineComponent({
       palettes.forEach(p => (p.active = false))
       palettes[index]['active'] = true
       const [color1, color2, color3] = colors
+      const menuBorderColor = hex2rgba(color2, 0.1)
       const vars = {
         '--color1': color1,
         '--color2': color2,
-        '--color3': color3
+        '--color3': color3,
+        '--menuBorderColor': menuBorderColor
       }
       makeUp(vars)
       storage.set(cacheKey.skin, vars)

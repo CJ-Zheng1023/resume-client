@@ -55,7 +55,7 @@ export default defineComponent({
 
 <style scoped lang="less">
 @menuItem: .menu-item;
-@menuItemBoderstyle: 1px solid #e4c02e;
+@menuItemBoderstyle: 1px solid @menuBorderColor;
 @labelAndIconGapSize: 20px;
 @{menuItem}{
   cursor: pointer;
@@ -110,7 +110,7 @@ export default defineComponent({
     position: relative;
     z-index: 2;
     flex-grow: 1;
-    border-right: @borderWidth solid #e4c133;
+    border-right: @borderWidth solid @menuBorderColor;
     &::after{
       width: @borderWidth;
       height: 100%;
