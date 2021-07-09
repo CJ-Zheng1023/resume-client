@@ -13,16 +13,10 @@ export default defineComponent({
 <style lang="less">
 #app {
   height: 100vh;
-  background: #757f9a; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #d7dde8,
-    #757f9a
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #d7dde8,
-    #757f9a
+  background-image: linear-gradient(
+    135deg,
+    #f5f7fa 0%,
+    #c3cfe2 100%
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 </style>
