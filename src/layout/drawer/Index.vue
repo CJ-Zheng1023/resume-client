@@ -48,13 +48,13 @@ export default defineComponent({
         active: false
       },
       {
-        colors: ['#e56a54', '#666666', '#e4e4e4'],
-        name: '玫瑰金',
+        colors: ['#0075A6', '#A49A76', '#F7FBF1'],
+        name: '海军蓝',
         active: false
       },
       {
-        colors: ['#2f9fd0', '#ad841f', '#666666'],
-        name: '玫瑰金',
+        colors: ['#7952B3', '#343A40', '#E1E8EB'],
+        name: '魅力紫',
         active: false
       }
     ])
