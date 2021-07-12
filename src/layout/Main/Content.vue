@@ -11,10 +11,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useRoute } from 'vue-router'
-
+import { useMessage } from 'naive-ui'
 export default defineComponent({
   setup() {
     const route = useRoute()
+    window.$message = useMessage()
     return {
       fullPath: route.fullPath
     }

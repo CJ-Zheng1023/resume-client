@@ -9,57 +9,26 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, reactive, toRefs, onMounted } from 'vue'
 import MyProgress from '@/components/progress/Index.vue'
+import { showSkill } from '@/api'
+import { skillResult } from '@/api/model/skill'
 export default defineComponent({
   components: {
     MyProgress
   },
   setup() {
-    const skills = [
-      {
-        name: 'HTML5',
-        score: 85
-      },
-      {
-        name: 'CSS3',
-        score: 80
-      },
-      {
-        name: 'VUE',
-        score: 80
-      },
-      {
-        name: 'JQUERY',
-        score: 90
-      },
-      {
-        name: 'ES6',
-        score: 80
-      },
-      {
-        name: 'UNI-APP',
-        score: 75
-      },
-      {
-        name: 'ELECTRON',
-        score: 70
-      },
-      {
-        name: 'WEBPACK',
-        score: 70
-      },
-      {
-        name: 'GULP',
-        score: 70
-      },
-      {
-        name: 'TYPESCRIPT',
-        score: 65
-      }
-    ]
-    return {
+    const skills: skillResult = []
+    const state = reactive({
+      loading: false,
       skills
+    })
+    onMounted(async () => {
+      const res = await showSkill()
+      state.skills = res.data
+    })
+    return {
+      ...toRefs(state)
     }
   }
 })

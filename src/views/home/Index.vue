@@ -3,20 +3,20 @@
     <div class="home">
       <div class="home__title">
         <span class="home__text">您好，我叫</span>
-        <span class="home__text home__text--special">{{ info.name }}</span>
+        <span class="home__text home__text--special">{{ state.general.info.name }}</span>
       </div>
       <div class="home__tags">
         <div class="tags">
-          <tag v-for="(tag, index) in jobs" :key="index">{{ tag }}</tag>
+          <tag v-for="(tag, index) in state.general.jobs" :key="index">{{ tag }}</tag>
         </div>
       </div>
-      <div class="home__description">{{ description }}</div>
+      <div class="home__description">{{ state.general.description }}</div>
       <div class="home__info">
         <div class="home__title">
           <span class="home__text">基本信息</span>
         </div>
         <div class="infos">
-          <property :label="map[key]" :content="value" v-for="(value, key) in info" :key="key"></property>
+          <property :label="map[key]" :content="value" v-for="(value, key) in state.general.info" :key="key"></property>
         </div>
       </div>
     </div>
@@ -24,9 +24,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, reactive, onMounted, toRefs } from 'vue'
 import Tag from '@/components/tag/Index.vue'
 import Property from '@/components/property/Index.vue'
+import { showHome } from '@/api'
 export default defineComponent({
   components: {
     Tag,
@@ -34,24 +35,27 @@ export default defineComponent({
   },
   setup() {
     const general = {
-      jobs: ['前端工程师'],
-      description: `有着将近九年的前后端开发经验，针对前后端主流的技术有着一定的了解。 能够熟练使用vue及相关技术栈。对小程序开发，electron，gulp，rollup，webpack，typescript等技术都有一定的了解。 工作细心，团队合作意识强，乐于分享和交流自己的心得。 喜欢探索和研究新技术，勇于实践。`,
-      info: {
-        name: '郑成杰',
-        address: '沈阳市浑南区中海康城小区',
-        email: 'cj_zheng1023@hotmail.com',
-        phone: '18640394243'
-      }
+      info: {},
+      jobs: [],
+      description: ''
     }
+    const state = reactive({
+      loading: false,
+      general
+    })
     const map = {
       name: '姓名',
       address: '家庭住址',
       email: '邮箱',
       phone: '电话'
     }
+    onMounted(async () => {
+      const res = await showHome()
+      Object.assign(state.general, res.data)
+    })
     return {
-      ...general,
-      map
+      map,
+      state
     }
   }
 })
