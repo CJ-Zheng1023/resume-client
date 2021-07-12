@@ -8,7 +8,7 @@
             <div class="palette-wrapper">
               <div @click="clickPalette(item.colors, index)" :class="['palette', { 'palette--active': item.active }]" v-for="(item, index) in palettes" :key="index">
                 <div class="palette__box">
-                  <div class="palette__item" :style="{ 'background-color': color }" v-for="(color, index) in item.colors" :key="index"></div>
+                  <div class="palette__item" :style="{ backgroundColor: color }" v-for="(color, index) in item.colors" :key="index"></div>
                 </div>
                 <div class="palette__caption">{{ item.name }}</div>
               </div>
@@ -41,7 +41,12 @@ export default defineComponent({
       store.dispatch('app/setDrawerOpened', false)
     }
     useEventListener('click', deactivate)
-    const palettes = reactive<Array<Record<string, any>>>([
+    interface Palette {
+      colors: string[]
+      name: string
+      active: boolean
+    }
+    const palettes: Palette[] = reactive([
       {
         colors: ['#f4d03e', '#111', '#fff'],
         name: '玫瑰金',

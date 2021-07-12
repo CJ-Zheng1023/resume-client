@@ -35,7 +35,9 @@ export default defineComponent({
   },
   setup() {
     const general = {
-      info: {},
+      info: {
+        name: ''
+      },
       jobs: [],
       description: ''
     }

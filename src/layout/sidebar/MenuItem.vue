@@ -29,8 +29,7 @@ export default defineComponent({
   },
   props: {
     menuItem: {
-      type: Object,
-      default: () => {}
+      type: Object
     },
     isActive: {
       type: Boolean,
@@ -41,12 +40,12 @@ export default defineComponent({
   setup(props, { emit }) {
     const router = useRouter()
     const toNav = () => {
-      emit('active', props.menuItem.meta.icon)
-      router.push(props.menuItem.path)
+      emit('active', props.menuItem!.meta.icon)
+      router.push(props.menuItem!.path)
     }
     return {
       isMd: useIsMd(),
-      ...props.menuItem,
+      meta: props.menuItem!.meta,
       toNav
     }
   }

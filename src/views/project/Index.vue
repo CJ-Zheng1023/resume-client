@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="project">
-      <timeline-item extendable="true" v-for="(project, index) in projects" :key="index">
+      <timeline-item :extendable="true" v-for="(project, index) in projects" :key="index">
         <template #title>
           <div class="project__title">
             <div class="project__text">{{ project.name }}</div>
