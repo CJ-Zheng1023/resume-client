@@ -3,7 +3,7 @@
     <div class="menubox__inner flexible flexible--column">
       <div class="menubox__menu">
         <div class="menu">
-          <menu-item @active="handleActive" v-for="item in commonRoutes" :isActive="currentMenu === item.meta.icon" :key="item.name" :menuItem="item"></menu-item>
+          <menu-item @active="handleActive" v-for="item in commonRoutes" :isActive="icon === item.meta.icon" :key="item.name" :menuItem="item"></menu-item>
         </div>
       </div>
       <div :class="['menubox__link', { 'menubox__link--active': !isMd && toggleClicked }]">
@@ -59,7 +59,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, reactive, ref, toRefs, computed } from 'vue'
 import useIsMd from '@/hooks/useIsMd'
 import { commonRoutes } from '@/router/config'
 import MenuItem from './MenuItem.vue'
@@ -73,8 +73,10 @@ import {
 import { Layout } from '@vicons/carbon'
 import { Toolbox16Regular } from '@vicons/fluent'
 import { MenuIconEnum } from '@/enums/MenuIconEnum'
+import { IMeta } from './types'
 import { deactivateLinkNav } from '@/hooks/useWindowClick'
 import { useRoute } from 'vue-router'
+import { useTitle } from '@vueuse/core'
 export default defineComponent({
   components: {
     MenuItem,
@@ -88,18 +90,20 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute()
-    const currentMenu = ref<MenuIconEnum>(route.meta.icon as MenuIconEnum)
-    const handleActive = (menuName: MenuIconEnum) => {
-      currentMenu.value = menuName
+    const currentMenu = reactive<IMeta>(route.meta as unknown as IMeta)
+    const handleActive = (meta: IMeta) => {
+      Object.assign(currentMenu, meta)
     }
     const toggleClicked = ref<boolean>(false)
     const clickToggle = () => {
       toggleClicked.value = true
     }
+    const title = computed(() => currentMenu.title)
+    useTitle(title)
     deactivateLinkNav(toggleClicked)
     return {
       isMd: useIsMd(),
-      currentMenu,
+      ...toRefs(currentMenu),
       commonRoutes,
       handleActive,
       toggleClicked,

@@ -1,7 +1,7 @@
 interface General {
   jobs: string[]
   description: string
-  info: Info
+  info: Record<string, string>
 }
 interface Info {
   name: string

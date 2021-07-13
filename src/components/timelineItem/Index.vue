@@ -25,14 +25,13 @@ export default defineComponent({
       default: false
     }
   },
-  setup(props) {
+  setup() {
     const extended = ref<boolean>(true)
     const clickExtendButton = () => {
       extended.value = !extended.value
     }
     return {
       extended,
-      ...props,
       clickExtendButton
     }
   }

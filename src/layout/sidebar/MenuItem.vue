@@ -40,7 +40,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const router = useRouter()
     const toNav = () => {
-      emit('active', props.menuItem!.meta.icon)
+      emit('active', props.menuItem!.meta)
       router.push(props.menuItem!.path)
     }
     return {

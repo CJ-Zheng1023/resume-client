@@ -16,11 +16,7 @@ export default defineComponent({
       default: () => TagTypeEnum.DARK
     }
   },
-  setup(props) {
-    return {
-      type: props.type
-    }
-  }
+  setup() {}
 })
 </script>
 

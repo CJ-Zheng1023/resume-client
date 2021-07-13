@@ -24,19 +24,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, onMounted, toRefs } from 'vue'
+import { defineComponent, reactive, onMounted } from 'vue'
 import Tag from '@/components/tag/Index.vue'
 import Property from '@/components/property/Index.vue'
 import { showHome } from '@/api'
+import { generalResult } from '@/api/model/general'
 export default defineComponent({
   components: {
     Tag,
     Property
   },
   setup() {
-    const general = {
+    const general: generalResult = {
       info: {
-        name: ''
+        name: '',
+        address: '',
+        email: '',
+        phone: ''
       },
       jobs: [],
       description: ''
@@ -52,8 +56,8 @@ export default defineComponent({
       phone: '电话'
     }
     onMounted(async () => {
-      const res = await showHome()
-      Object.assign(state.general, res.data)
+      const { data } = await showHome()
+      Object.assign(state.general, data)
     })
     return {
       map,
