@@ -28,14 +28,13 @@ import { defineComponent, reactive, onMounted } from 'vue'
 import Tag from '@/components/tag/Index.vue'
 import Property from '@/components/property/Index.vue'
 import { showHome } from '@/api'
-import { generalResult } from '@/api/model/general'
 export default defineComponent({
   components: {
     Tag,
     Property
   },
   setup() {
-    const general: generalResult = {
+    const general = {
       info: {
         name: '',
         address: '',
