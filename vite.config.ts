@@ -26,7 +26,7 @@ export default defineConfig({
     open: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:7777',
+        target: 'https://afterwin.cn',
         changeOrigin: true
       }
     }
