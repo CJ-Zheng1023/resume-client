@@ -9,7 +9,7 @@ http.interceptors.response.use(
     return response
   },
   error => {
-    window.$message.warning('查询接口失败')
+    window.$message?.warning('查询接口失败')
     return Promise.reject(error)
   }
 )
