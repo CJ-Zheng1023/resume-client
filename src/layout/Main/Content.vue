@@ -30,6 +30,7 @@ export default defineComponent({
 
 <style scoped lang="less">
 .content {
+  background-color: @color3;
   .flexItem(content);
 }
 

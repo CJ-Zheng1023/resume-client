@@ -39,7 +39,7 @@ export default defineComponent({
         name: '',
         address: '',
         email: '',
-        phone: ''
+        gallery: ''
       },
       jobs: [],
       description: ''
@@ -52,7 +52,7 @@ export default defineComponent({
       name: '姓名',
       address: '家庭住址',
       email: '邮箱',
-      phone: '电话'
+      gallery: '成果物'
     }
     onMounted(async () => {
       const { data } = await showHome()
@@ -68,28 +68,33 @@ export default defineComponent({
 
 <style scoped lang="less">
 @home: .home;
-@{home}{
-  @{home}__title{
+
+@{home} {
+  @{home}__title {
     padding: 16px 0;
   }
-  @{home}__text{
+
+  @{home}__text {
     font-size: @fontSize3;
     color: @color2;
     font-weight: 400;
     padding: 8px 6px 8px 0;
-    &@{home}__text--special{
+
+    &@{home}__text--special {
       padding: 8px 6px;
       background-color: @color1;
     }
   }
-  @{home}__description{
+
+  @{home}__description {
     line-height: 1.4;
     font-size: @fontSize5;
     color: @color2;
     margin-top: 30px;
     font-weight: 200;
   }
-  @{home}__info{
+
+  @{home}__info {
     margin-top: 60px;
   }
 }

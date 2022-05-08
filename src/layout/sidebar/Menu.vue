@@ -48,7 +48,7 @@
               </a>
             </div>
             <div class="link-item">
-              <a href="https://vueuse.org/" target="_blank">
+              <a href="https://work-gallery.vercel.app/" target="_blank">
                 <Icon>
                   <Toolbox16Regular />
                 </Icon>
